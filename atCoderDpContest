@@ -1,0 +1,33 @@
+question 1
+1) https://atcoder.jp/contests/dp/tasks/dp_a
+solution:-
+import sys
+sys.setrecursionlimit(10**6)
+# [int(a) for a in input().split()]
+# for _ in range(int(input()))
+n=int(input())
+h=[int(a) for a in input().split()]
+def frog1(i,n,h,val,dp):
+    if i==n-1:
+        return val
+    if dp[i][val]!=-1:
+        return dp[i][val]
+    if i<=n-2:
+        k1=frog1(i+1,n,h,val+abs(h[i]-h[i+1]),dp)
+    if i<=n-3:
+        k2=frog1(i+2,n,h,val+abs(h[i]-h[i+2]),dp)
+        if i==n-3:
+            return val+abs(h[i]-h[i+2])
+    if i==n-2:
+        return k1
+    else:
+        dp[i][val]=min(k1,k2)
+        return dp[i][val]
+dp=[]
+val=sum(h)
+for l in range(n):
+    dp.append([])
+    for j in range(val+1):
+        dp[l].append(-1)
+ 
+print(frog1(0,n,h,0,dp))
