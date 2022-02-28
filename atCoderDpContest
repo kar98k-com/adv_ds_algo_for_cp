@@ -31,3 +31,31 @@ for l in range(n):
         dp[l].append(-1)
  
 print(frog1(0,n,h,0,dp))
+
+
+qquestion 2
+
+import sys
+sys.setrecursionlimit(10**6)
+# [int(a) for a in input().split()]
+# for _ in range(int(input()))
+n,k=[int(a) for a in input().split()]
+h=[int(a) for a in input().split()]
+def frog2(i,n,k,h,val,dp):
+    if i==n-1:
+        return val
+    if dp[i][val]!=-1:
+        return dp[i][val]
+    if i+1<=n-1:
+        dp[i][val]=frog2(i+1,n,k,h,val+abs(h[i]-h[i+1]),dp)
+    for l in range(2,k+1):
+        if i+l<=n-1:
+            dp[i][val]=min(dp[i][val],frog2(i+l,n,k,h,val+abs(h[i]-h[i+l]),dp))
+    return dp[i][val]
+dp=[]
+v=sum(h)
+for i in range(n):
+    dp.append([])
+    for j in range(v+1):
+        dp[i].append(-1)
+print(frog2(0,n,k,h,0,dp))
