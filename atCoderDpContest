@@ -59,3 +59,28 @@ for i in range(n):
     for j in range(v+1):
         dp[i].append(-1)
 print(frog2(0,n,k,h,0,dp))
+
+
+vacation 
+
+import sys
+sys.setrecursionlimit(10**6)
+def vac(i,p,mat,hap=0):
+    if i==len(mat):
+        return hap
+    if p==-1:
+        return max(vac(i+1,0,mat,hap+mat[i][0]),vac(i+1,1,mat,hap+mat[i][1]),vac(i+1,2,mat,hap+mat[i][2]))
+    if p==1:
+        return max(vac(i+1,0,mat,hap+mat[i][0]),vac(i+1,2,mat,hap+mat[i][2]))
+    elif p==2:
+        return max(vac(i+1,0,mat,hap+mat[i][0]),vac(i+1,1,mat,hap+mat[i][1]))
+    else:
+        return max(vac(i+1,1,mat,hap+mat[i][1]),vac(i+1,2,mat,hap+mat[i][2]))
+    
+#for _ in range(int(input()))
+#int(input())
+#[int(a) for a in input().split()]
+mat=[]
+for _ in range(int(input())):
+    mat.append([int(a) for a in input().split()])
+print(vac(0,-1,mat))
